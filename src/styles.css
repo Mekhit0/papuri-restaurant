@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/FiraGO-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/FiraGO-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/FiraGO-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-paper: #f3efe6;
+  --color-ink: #1c1915;
+  --color-muted: #6e685f;
+  --color-line: #d8d1c5;
+  --color-wine: #7a2e24;
+  --font-sans: "FiraGO", "Noto Sans Georgian", sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+  }
+
+  ::selection {
+    background: #e4d3c4;
+    color: var(--color-ink);
+  }
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 720ms var(--ease-out),
+    transform 720ms var(--ease-out);
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-photo {
+  animation: hero-in 1100ms var(--ease-out) both;
+}
+
+.photo-frame {
+  overflow: hidden;
+}
+
+.photo-frame img {
+  transition: transform 600ms var(--ease-out);
+}
+
+.photo-frame:hover img {
+  transform: scale(1.03);
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-photo,
+  .photo-frame img {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #codes,
+  #codes * {
+    visibility: visible;
+  }
+
+  #codes {
+    position: absolute;
+    inset: 0;
+    border: 0;
+  }
+}
